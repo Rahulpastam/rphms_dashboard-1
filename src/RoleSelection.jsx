@@ -2,7 +2,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./App.css";
-import Context from "./main"
 
 const RoleSelection = () => {
   const navigate = useNavigate();

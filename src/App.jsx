@@ -20,32 +20,32 @@ const App = () => {
   const { isAuthenticated, setIsAuthenticated, user, setUser, role, setRole } =
     useContext(Context);
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await axios.get(
-          `https://rp-hms-backend-1.onrender.com/api/v1/user/${role}/me`,
-          {
-            withCredentials: true,
-          }
-        );
-        setIsAuthenticated(true);
-        setUser(response.data.user);
-      } catch (error) {
-        setIsAuthenticated(false);
-        setUser({});
-      }
+  // useEffect(() => {
+  //   const fetchUser = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         `https://rp-hms-backend-1.onrender.com/api/v1/user/${role}/me`,
+  //         {
+  //           withCredentials: true,
+  //         }
+  //       );
+  //       setIsAuthenticated(true);
+  //       setUser(response.data.user);
+  //     } catch (error) {
+  //       setIsAuthenticated(false);
+  //       setUser({});
+  //     }
 
-    };
-    fetchUser();
-  }, [isAuthenticated]);
+  //   };
+  //   fetchUser();
+  // }, [setIsAuthenticated, setUser, role]);
 
   return (
     <Router>
       <Sidebar />
       <Routes>
         <Route path="/" element={<Dashboard />} />
-        {/* <Route path="/roleselection" element={<RoleSelection/>}/> */}
+        <Route path="/roleselection" element={<RoleSelection/>}/>
         <Route path="/login" element={<Login />} />
         <Route path="/doctorlogin" element={<DoctorLogin />} />
         <Route path="/doctor/addnew" element={<AddNewDoctor />} />

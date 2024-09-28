@@ -63,10 +63,6 @@ const Dashboard = () => {
 
   const { isAuthenticated, user } = useContext(Context);
 
-  // if (!isAuthenticated) {
-  //   return <Navigate to={"/roleselection"} />;
-  // }
-
   return (
     <>
       <section className="dashboard page">
