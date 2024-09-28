@@ -1,29 +1,26 @@
 /* eslint-disable no-unused-vars */
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../main";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { GoCheckCircleFill } from "react-icons/go";
 import { AiFillCloseCircle } from "react-icons/ai";
+import RoleSelection from "../RoleSelection";
 
 const Dashboard = () => {
+  const navigate = useNavigate();
+  const { user, setUser, isAuthenticated, setIsAuthenticated } = useContext(Context);
   const [appointments, setAppointments] = useState([]);
 
+
+ 
+
   useEffect(() => {
-    const fetchAppointments = async () => {
-      try {
-        const { data } = await axios.get(
-          "https://rp-hms-backend-1.onrender.com/api/v1/appointment/getallAppointments",
-          { withCredentials: true }
-        );
-        setAppointments(data.appointments);
-      } catch (error) {
-        setAppointments([]);
-      }
-    };
-    fetchAppointments();
-  }, []);
+    if(!isAuthenticated){
+      navigate("/roleselection");
+    }
+  }, [isAuthenticated, navigate]);
 
   const handleUpdateStatus = async (appointmentId, status) => {
     try {
@@ -60,8 +57,6 @@ const Dashboard = () => {
     };
     fetchDoctors();
   }, []);
-
-  const { isAuthenticated, user } = useContext(Context);
 
   return (
     <>
@@ -145,11 +140,11 @@ const Dashboard = () => {
                       </td>
                     </tr>
                   ))
-                : "No Appointments Found!"}
+                : (<tr>
+                    <td>{"No Appointments Found!"}</td>
+                  </tr>)}
             </tbody>
           </table>
-
-          {}
         </div>
       </section>
     </>

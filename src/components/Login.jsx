@@ -8,10 +8,20 @@ import axios from "axios";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { isAuthenticated, setIsAuthenticated, role, setRole } =
+  const { isAuthenticated, setIsAuthenticated, role, setRole, user, setUser, toke, setToke } =
     useContext(Context);
 
   const navigateTo = useNavigate();
+
+  function setCookie(name, value, days) {
+    let expires = "";
+    if (days) {
+      const date = new Date();
+      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+      expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "") + expires + "; path=/";
+  }
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -28,6 +38,8 @@ const Login = () => {
         .then((res) => {
           toast.success(res.data.message);
           setIsAuthenticated(true);
+          setUser(res.data.user);
+          setCookie("adminToken", res.data.token, 7);
           setRole("admin");
           navigateTo("/");
           setEmail("");

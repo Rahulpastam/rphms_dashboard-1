@@ -13,24 +13,32 @@ import { Context } from "../main";
 import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
 
   const { isAuthenticated, setIsAuthenticated, role, setRole } =
     useContext(Context);
 
   const handleLogout = async (e) => {
+
+    function deleteCookie(name) {
+      document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; Secure; SameSite=None;';
+      setIsAuthenticated(false);
+      toast.success("User Loggedout successfully")
+    }
     e.preventDefault();
-    await axios
-      .get(`https://rp-hms-backend-1.onrender.com/api/v1/user/${role}/logout`, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        toast.success(res.data.message);
-        setIsAuthenticated(false);
-      })
-      .catch((err) => {
-        toast.error(err.response.data.message);
-      });
+    deleteCookie(`${role}Token`)
+
+    // await axios
+    //   .get(`https://rp-hms-backend-1.onrender.com/api/v1/user/${role}/logout`, {
+    //     withCredentials: true,
+    //   })
+    //   .then((res) => {
+    //     toast.success(res.data.message);
+    //     setIsAuthenticated(false);
+    //   })
+    //   .catch((err) => {
+    //     toast.error(err.response.data.message);
+    //   });
   };
 
   const navigateTo = useNavigate();
@@ -59,7 +67,7 @@ const Sidebar = () => {
   return (
     <>
       <nav
-        style={!isAuthenticated ? { display: "none" } : { display: "flex" }}
+        style={isAuthenticated ? { display: "flex" } : { display: "none" } }
         className={show ? "show sidebar" : "sidebar"}
       >
         <div className="links">
@@ -99,12 +107,12 @@ const Sidebar = () => {
       </nav>
       <div
         className="wrapper"
-        style={!isAuthenticated ? { display: "none" } : { display: "flex" }}
+        style={isAuthenticated ? { display: "flex" } : { display: "none" }}
       >
         <GiHamburgerMenu
           style={{ cursor: "pointer" }}
           className="hamburger"
-          onClick={() => setShow(!show)}
+          // onClick={() => setShow(!show)}
         />
       </div>
     </>
