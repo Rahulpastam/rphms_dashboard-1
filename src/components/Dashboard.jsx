@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../main";
 import { Navigate } from "react-router-dom";
@@ -62,9 +63,9 @@ const Dashboard = () => {
 
   const { isAuthenticated, user } = useContext(Context);
 
-  if (!isAuthenticated) {
-    return <Navigate to={"/roleselection"} />;
-  }
+  // if (!isAuthenticated) {
+  //   return <Navigate to={"/roleselection"} />;
+  // }
 
   return (
     <>

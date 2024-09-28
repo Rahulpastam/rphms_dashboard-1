@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useContext, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
@@ -44,7 +45,7 @@ const App = () => {
       <Sidebar />
       <Routes>
         <Route path="/" element={<Dashboard />} />
-        <Route path="/roleselection" element={<RoleSelection/>}/>
+        {/* <Route path="/roleselection" element={<RoleSelection/>}/> */}
         <Route path="/login" element={<Login />} />
         <Route path="/doctorlogin" element={<DoctorLogin />} />
         <Route path="/doctor/addnew" element={<AddNewDoctor />} />
