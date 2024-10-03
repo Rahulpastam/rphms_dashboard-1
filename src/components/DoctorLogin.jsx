@@ -64,7 +64,8 @@ const DoctorLogin = () => {
           className="logo"
         />
         <h1 className="form-title">WELCOME TO RP HOSPITAL MANAGEMENT SYSTEM</h1>
-        <p>Only Doctors Are Allowed To Access These Resources!</p>
+        <p>Only Doctors Are Allowed To Access These Resources!</p><br />
+        <p>Login using doctor02@gmail.com and Password: 123456 for demo</p>
         <form onSubmit={handleLogin}>
           <input
             type="text"
